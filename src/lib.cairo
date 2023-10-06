@@ -1,28 +1,11 @@
-fn main() -> felt252 {
-    fib(16)
+use debug::PrintTrait;
+fn main() {
+    let width1 = 30;
+    let height1 = 10;
+    let area = area(width1, height1);
+    area.print();
 }
 
-fn fib(mut n: felt252) -> felt252 {
-    let mut a: felt252 = 0;
-    let mut b: felt252 = 1;
-    loop {
-        if n == 0 {
-            break a;
-        }
-        n = n - 1;
-        let temp = b;
-        b = a + b;
-        a = temp;
-    }
-}
-
-#[cfg(test)]
-mod tests {
-    use super::fib;
-
-    #[test]
-    #[available_gas(100000)]
-    fn it_works() {
-        assert(fib(16) == 987, 'it works!');
-    }
+fn area(width: u64, height: u64) -> u64 {
+    width * height
 }
