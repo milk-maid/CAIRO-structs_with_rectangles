@@ -1,4 +1,4 @@
-// use debug::PrintTrait;
+use debug::PrintTrait;
 // fn main() {
 //     let width1 = 30;
 //     let height1 = 10;
@@ -63,7 +63,7 @@ fn area(rectangle: Rectangle) -> u64 {
 
 // ADDING FUNCTIONALITY WITH TRAIT
 
-use debug::PrintTrait;
+// use debug::PrintTrait;
 
 struct Rectangle {
     width: u64,
@@ -74,7 +74,7 @@ fn main() -> u64 {
     let rectangle = Rectangle { width: 30, height: 10, } ;
     // rectangle.print(); // only possible with the trait implementation as below
     // area(rectangle).print(); // using the earlier declared function
-    area(rectangle)
+    area(rectangle) // the return value
 }
 
 impl RectanglePrintImpl of PrintTrait<Rectangle> {
