@@ -1,4 +1,4 @@
-use debug::PrintTrait;
+// use debug::PrintTrait;
 // fn main() {
 //     let width1 = 30;
 //     let height1 = 10;
@@ -41,9 +41,6 @@ use debug::PrintTrait;
 //     area.print(); // print out the area
 // }
 
-fn area(rectangle: Rectangle) -> u64 {
-    rectangle.width * rectangle.height
-}
 
 // Adding Useful Functionality with Trait
 // to print an instance of Rectangle while we’re debugging our program and see the values for all its fields
@@ -65,21 +62,48 @@ fn area(rectangle: Rectangle) -> u64 {
 
 // use debug::PrintTrait;
 
+// fn area(rectangle: Rectangle) -> u64 {
+//     rectangle.width * rectangle.height
+// }
+
+// struct Rectangle {
+//     width: u64,
+//     height: u64,
+// }
+
+// fn main() -> u64 {
+//     let rectangle = Rectangle { width: 30, height: 10, } ;
+//     // rectangle.print(); // only possible with the trait implementation as below
+//     // area(rectangle).print(); // using the earlier declared function
+//     area(rectangle) // the return value
+// }
+
+// impl RectanglePrintImpl of PrintTrait<Rectangle> {
+//     fn print(self: Rectangle) {
+//         self.width.print();
+//         self.height.print();
+//     }
+// }
+
+use debug::PrintTrait;
+#[derive(Copy, Drop)]
 struct Rectangle {
     width: u64,
     height: u64,
 }
 
-fn main() -> u64 {
-    let rectangle = Rectangle { width: 30, height: 10, } ;
-    // rectangle.print(); // only possible with the trait implementation as below
-    // area(rectangle).print(); // using the earlier declared function
-    area(rectangle) // the return value
+trait RectangleTrait {
+    fn area(self: @Rectangle) -> u64;
 }
 
-impl RectanglePrintImpl of PrintTrait<Rectangle> {
-    fn print(self: Rectangle) {
-        self.width.print();
-        self.height.print();
+impl RectangleImpl of RectangleTrait {
+    fn area(self: @Rectangle) -> u64 {
+        (*self.width) * (*self.height)
     }
+}
+
+fn main() {
+    let rect1 = Rectangle { width: 30, height: 50, };
+
+    rect1.area().print();
 }
