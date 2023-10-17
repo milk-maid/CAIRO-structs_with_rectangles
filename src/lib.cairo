@@ -94,16 +94,44 @@ struct Rectangle {
 
 trait RectangleTrait {
     fn area(self: @Rectangle) -> u64;
+    fn can_hold(self: @Rectangle, other: @Rectangle) -> bool;
+    fn square(size: u64) -> Rectangle;
 }
 
 impl RectangleImpl of RectangleTrait {
     fn area(self: @Rectangle) -> u64 {
-        (*self.width) * (*self.height)
+        *self.width * *self.height
+    }
+
+    fn can_hold(self: @Rectangle, other: @Rectangle) -> bool {
+        *self.width > *other.width && *self.height > *other.height
+    }
+
+    fn square(size: u64) -> Rectangle {
+        Rectangle { width: size, height: size }
     }
 }
 
+
 fn main() {
     let rect1 = Rectangle { width: 30, height: 50, };
+    let rect2 = Rectangle { width: 10, height: 40, };
+    let rect3 = Rectangle { width: 60, height: 45, };
+
+    'Can rect1 hold rect2?'.print();
+    rect1.can_hold(@rect2).print();
+
+    'Can rect1 hold rect3?'.print();
+    rect1.can_hold(@rect3).print();
 
     rect1.area().print();
+
+    let square = RectangleImpl::square(10);
+    let squareA = RectangleImpl::square(5);
+    square.area().print();
+    square.can_hold(@squareA).print();
+
+    // RectangleTrait::square(10);
+    RectangleTrait::square(10).area().print();
+
 }
